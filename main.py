@@ -28,16 +28,24 @@ class Test:
         self.coin = 0
 
 """업비트 API KEY"""
-access = ""
-secret = ""
+f = open("C:/UPBIT_APIKEY.txt", 'r')
+API_KEY = []
+while True:
+    line = f.readline()
+    if not line: break
+    line = line.strip()
+    API_KEY.append(line)
+f.close()
+access = API_KEY[0]
+secret = API_KEY[1]
 
 """매매 조건"""
-buy_perc = 0.01  # 시작가 대비 1% 오르면 매수
+buy_perc = 0.005  # 시작가 대비 0.5% 오르면 매수
 sell_perc = 0.01 # 매수가 대비 1% 오르면 매도(익절)
 losscut = -0.01   # 매수가 대비 1% 내리면 losscut 매도(손절)
 
 """매매 대상 코인"""
-ticker = "KRW-XRP"
+ticker = "KRW-SAND"
 
 """코인 매수 가격"""
 buy_coin_price = 0
@@ -135,7 +143,7 @@ while True:
             #if pla > 3.45:
             #    upbit.sell_market_order("KRW-PLA", pla)
         print("KRW : " + str(test.get_balance('KRW')))
-        print("XRP : " + str(test.get_balance(ticker)))
+        print(ticker + " : " + str(test.get_balance(ticker)))
         print("TOTAL : " + str((test.get_balance(ticker) * get_current_price(ticker) + test.get_balance('KRW'))))
         time.sleep(1)
     except Exception as e:
